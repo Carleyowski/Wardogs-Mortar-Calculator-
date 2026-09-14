@@ -1,0 +1,14 @@
+{
+  "name": "wardogs-calculator",
+  "version": "3.0.0",
+  "description": "Wardogs Calculator - Discord bot that calculates azimuth and distance for Mortar and Artillery Tank fire missions in WARDOGS, with per-server language selection.",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5"
+  }
+}
