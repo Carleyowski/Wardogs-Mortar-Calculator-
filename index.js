@@ -4,7 +4,7 @@
 // language selection via /language.
 //
 // Calculation rule:
-// - Coordinates are given as "Y, X" (map unit = 100 m in-game).
+// - Coordinates are given as "X, Y" (map unit = 100 m in-game).
 // - dx = X_target - X_weapon   (positive = east)
 // - dy = Y_target - Y_weapon   (positive = north)
 // - distance (m) = sqrt(dx^2 + dy^2) * 100
@@ -52,7 +52,7 @@ const WEAPONS = {
 
 // Link shown by /tip. Replace this with your own Buy Me a Coffee / Ko-fi /
 // PayPal.me link - this is the only thing you need to change.
-const TIP_URL = 'https://ko-fi.com/luisramirezpl';
+const TIP_URL = 'https://buymeacoffee.com/your-username';
 
 // --- Coordinate parsing ---
 // Accepts formats such as:
@@ -97,7 +97,7 @@ function parsePosition(raw, lang) {
     throw new Error(t(lang, 'errors.parseFail', { raw }));
   }
 
-  return { y: nums[0], x: nums[1] };
+  return { x: nums[0], y: nums[1] };
 }
 
 // --- Azimuth / distance calculation ---
@@ -147,8 +147,8 @@ async function handleFireMission(interaction, weaponKey) {
       .setTitle(t(lang, 'fireMission.title', { weapon: weaponRange.name }))
       .setColor(0x2b6cb0)
       .addFields(
-        { name: t(lang, 'fireMission.weaponPos'), value: `${weaponPos.y} / ${weaponPos.x}`, inline: true },
-        { name: t(lang, 'fireMission.targetPos'), value: `${targetPos.y} / ${targetPos.x}`, inline: true },
+        { name: t(lang, 'fireMission.weaponPos'), value: `${weaponPos.x} / ${weaponPos.y}`, inline: true },
+        { name: t(lang, 'fireMission.targetPos'), value: `${targetPos.x} / ${targetPos.y}`, inline: true },
         { name: '\u200B', value: '\u200B', inline: true },
         { name: t(lang, 'fireMission.azimuth'), value: `${azimuth.toFixed(1)}° (${compass})`, inline: true },
         { name: t(lang, 'fireMission.distance'), value: `${distanceMeters.toFixed(0)} m`, inline: true },
