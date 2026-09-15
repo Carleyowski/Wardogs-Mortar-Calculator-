@@ -34,6 +34,7 @@ const {
   ButtonBuilder,
   ButtonStyle,
   PermissionsBitField,
+  MessageFlags,
 } = require('discord.js');
 require('dotenv').config();
 
@@ -161,7 +162,7 @@ async function handleFireMission(interaction, weaponKey) {
       embeds: [embed],
     });
   } catch (err) {
-    await interaction.reply({ content: `❌ ${err.message}`, ephemeral: true });
+    await interaction.reply({ content: `❌ ${err.message}`, flags: MessageFlags.Ephemeral });
   }
 }
 
@@ -181,7 +182,7 @@ async function handleHelp(interaction) {
     )
     .setFooter({ text: t(lang, 'footer') });
 
-  await interaction.reply({ embeds: [embed], ephemeral: true });
+  await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
 }
 
 async function handleTip(interaction) {
@@ -194,7 +195,7 @@ async function handleTip(interaction) {
     .setFooter({ text: t(lang, 'footer') });
 
   // Ephemeral - only the person who ran /tip sees it, so it doesn't clutter the channel.
-  await interaction.reply({ embeds: [embed], ephemeral: true });
+  await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
 }
 
 function buildLanguageRows() {
@@ -238,7 +239,7 @@ async function handleLanguageButton(interaction) {
   const canManage = interaction.memberPermissions?.has(PermissionsBitField.Flags.Administrator);
   if (!canManage) {
     const currentLang = getLanguage(interaction.guildId);
-    await interaction.reply({ content: t(currentLang, 'language.permissionDenied'), ephemeral: true });
+    await interaction.reply({ content: t(currentLang, 'language.permissionDenied'), flags: MessageFlags.Ephemeral });
     return;
   }
 
@@ -369,7 +370,7 @@ client.on('interactionCreate', async (interaction) => {
     // hiccup) crash the whole bot process - just log it and move on.
     console.error('Unhandled interaction error:', err);
     try {
-      const payload = { content: '❌ Something went wrong handling that. Please try again.', ephemeral: true };
+      const payload = { content: '❌ Something went wrong handling that. Please try again.', flags: MessageFlags.Ephemeral };
       if (interaction.deferred || interaction.replied) {
         await interaction.followUp(payload);
       } else {
